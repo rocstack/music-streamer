@@ -1,0 +1,7 @@
+node_modules
+# Keep environment variables out of version control
+.env
+public/music/*
+prisma/migrations/
+prisma/main.db
+prisma/main.db-journal

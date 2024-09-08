@@ -1,0 +1,35 @@
+// prisma/schema.prisma
+
+// Define your datasource
+datasource db {
+  provider = "sqlite"
+  url      = "file:./main.db" // This defines the SQLite database file
+}
+
+// Define the Prisma client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Your models go here
+model File {
+  id          Int      @id @default(autoincrement())
+  path        String   @unique
+  filename    String
+  directory   String
+  extension   String
+  lastUpdated DateTime
+  firstAdded  DateTime
+  metadata    String? // Store JSON as a string
+  checksum    String   @unique
+  song        Song?
+}
+
+model Song {
+  id     Int    @id @default(autoincrement())
+  title  String
+  artist String
+  album  String
+  fileId Int    @unique
+  file   File   @relation(fields: [fileId], references: [id])
+}
